@@ -19,6 +19,9 @@ class TestMain:
     def test_start_app(self):
         self.d.poco_click(text="测试服务器")
 
+    def teardown_class(self):
+        pass
+
 
 if __name__ == "__main__":
     os.system('pytest -s -q test_main.py --alluredir ./../log/temp')

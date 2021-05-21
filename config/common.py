@@ -26,11 +26,13 @@ class AirtestPoco:
 
     def poco_obj(self, **kwargs):
         """poco实例"""
+        # 复制过来的代码，暂不清楚有什么作用，后面可优化
         if 'index' in kwargs:
             index = kwargs.pop('index')
             ele = self.poco(**kwargs)[index]
         else:
             ele = self.poco(**kwargs)
+        # 等待元素出现
         ele.wait_for_appearance(timeout=self.timeout)
         return ele
 
@@ -44,4 +46,5 @@ class AirtestPoco:
         """
         log("点击元素：{}".format(kwargs))
         self.poco_obj(**kwargs).click()
+        # 在点击事件后睡眠固定的事件
         self.poco.sleep_for_polling_interval()
