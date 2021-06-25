@@ -8,8 +8,8 @@ class TestMain:
     def setup_class(self):
         self.d = AirtestPoco()
         print("启动app")
-        stop_app("com.touchtv.boluo")
-        start_app("com.touchtv.boluo")
+        stop_app("com.touchtv.touchtv")
+        start_app("com.touchtv.touchtv")
         time.sleep(2)
 
     @allure.story('登录流程')
@@ -20,7 +20,7 @@ class TestMain:
         self.d.poco_click(text="测试服务器")
 
     def teardown_class(self):
-        pass
+        stop_app("com.touchtv.touchtv")
 
 
 if __name__ == "__main__":

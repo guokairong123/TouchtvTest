@@ -37,6 +37,7 @@ class AirtestPoco:
         return ele
 
     @allure.step("poco点击元素：")
+    # 字典传参
     def poco_click(self, **kwargs):
         """
         对由UI代理表示的UI元素执行click操作。如果这个UI代理代表一组
