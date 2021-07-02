@@ -5,6 +5,8 @@ from airtest.core.api import connect_device
 from airtest.core.cv import Template
 from airtest.core.helper import log
 from poco.drivers.android.uiautomation import AndroidUiautomationPoco
+from airtest.core import error as airtest_exception
+from poco import exceptions as poco_exception
 
 
 class AirtestPoco:
@@ -49,3 +51,25 @@ class AirtestPoco:
         self.poco_obj(**kwargs).click()
         # 在点击事件后睡眠固定的事件
         self.poco.sleep_for_polling_interval()
+
+    @allure.step("poco等待一个元素显示：")
+    def poco_wait_any(self, objects: list):
+        """
+        等待，直到所有给定的一个 UI 代理在超时之前显示。将定期轮询所有 UI 代理。
+        :param objects:
+        :return: bool
+        """
+        try:
+            return self.poco.wait_for_any(objects, timeout=self.timeout)
+        except poco_exception.PocoTargetTimeout:
+            return False
+
+    @allure.step("poco元素存在：")
+    def poco_exists(self, **kwargs):
+        """
+        测试UI元素是否在层次结构中
+        :param kwargs: [text,name]
+        """
+        result = self.poco(**kwargs).exists()
+        log("元素{}验证结果: {}".format(kwargs, result))
+        return result
